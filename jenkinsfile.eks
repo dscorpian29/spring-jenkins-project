@@ -35,5 +35,10 @@ pipeline {
                 sh label: '', script: 'mvn clean package -DskipTests'
             }
         }
+        stage('Deploy Code'){
+            steps{
+                sh label: '', script: 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@18.222.109.132:/opt/tomcat/webapps'
+            }
+        }
     }
 }

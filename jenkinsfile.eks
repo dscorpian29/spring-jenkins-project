@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven3.6.3' 
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('GitCheckout'){
+            steps{
+                git credentialsId: 'githubcred', url: 'https://github.com/learnngrow369/spring-jenkins-project.git'
+            }
+        }
+        stage('mvncompile'){
+            steps{
+                sh label: '', script: 'mvn clean compile'
+            }
+        }
+        stage('Unit Test Execution'){
+            steps{
+                sh label: '', script: 'mvn compiler:testCompile -Dfilename=testng-unit.xml surefire:test'
+            }
+            post{
+                always{
+                    step([$class: 'Publisher'])
+                }
+            }
+        }
+        stage('PKG Build'){
+            steps{
+                sh label: '', script: 'mvn clean package -DskipTests'
+            }
+        }
+    }
+}

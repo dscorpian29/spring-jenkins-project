@@ -39,7 +39,7 @@ pipeline {
             steps{
                 sshagent(['AWSPKey']) {
                     sh 'whoami'
-                    sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@18.222.109.132:/opt/tomcat/webapps'
+                    sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@3.22.241.7:/opt/tomcat/webapps'
                     }
             }
         }

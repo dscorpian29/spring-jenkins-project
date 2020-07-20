@@ -1,5 +1,5 @@
 pipeline {
-    agent maven
+    agent {'maven'}
     tools {
         maven 'Maven3.6.3' 
     }
